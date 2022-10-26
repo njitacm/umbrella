@@ -1,5 +1,5 @@
 variable "project" {
-  default = "njitacmi"
+  default = "umbrella-00000" //temp project id
 }
 
 variable "creds" {

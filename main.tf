@@ -15,16 +15,16 @@ provider "google" {
 }
 
 # Enable Google Compute Service
-resource "google_project_service" "computeAPI" {
-    project = var.project
-    service = "compute.googleapis.com"
-    timeouts {
-        create = "30m"
-        update = "40m"
-    }
-    disable_dependent_services = true
-    disable_on_destroy = false
-}
+# resource "google_project_service" "computeAPI" {
+#     project = var.project
+#     service = "compute.googleapis.com"
+#     timeouts {
+#         create = "30m"
+#         update = "40m"
+#     }
+#     disable_dependent_services = true
+#     disable_on_destroy = false
+# }
 
 resource "google_compute_network" "vpc_network" {
   name                    = "infra"
@@ -32,21 +32,19 @@ resource "google_compute_network" "vpc_network" {
 }
 
 #Create Compute Instance
-resource "google_compute_instance" "vm_instance"{
-  name          = "terraform-instance"
-  machine_type  = "f1-micro"
+resource "google_compute_instance" "vm_instance" {
+  name         = "terraform-instance"
+  machine_type = "f1-micro"
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "debian-cloud/debian-11"
     }
   }
 
   network_interface {
     #A default network created for GCP projects
-    network = "${google_compute_network.vpc_network.self_link}"
-    access_config {
-    }
+    network = "default"
   }
 
 }
